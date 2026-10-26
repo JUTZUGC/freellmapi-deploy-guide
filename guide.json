@@ -1,0 +1,106 @@
+{
+  "owner": "JUTZUGC",
+  "code": "JUTZUGC",
+  "project": {
+    "key": "freellmapi",
+    "nameCn": "FreeLLMAPI",
+    "repoName": "freellmapi-deploy-guide",
+    "oneLiner": "把几十家免费大模型聚合成一个 OpenAI 兼容接口的本地路由",
+    "officialRepo": "https://github.com/tashfeenahmed/freellmapi",
+    "officialDocs": "https://github.com/tashfeenahmed/freellmapi#quick-start",
+    "stars": "41.9k",
+    "license": "MIT",
+    "highlights": [
+      "聚合：34 家供应商、635 个免费端点，统一 /v1",
+      "路由：按额度、限流、健康度自动换下一个",
+      "客户端：Claude Code / Codex / Cursor 等有现成接入命令",
+      "面板：Keys、Fallback Chain、用量统计，支持 60 种语言",
+      "形态：Windows 安装包、macOS dmg、Linux AppImage、Docker、Termux",
+      "数据：密钥加密存本机 SQLite，请求不经过第三方中转"
+    ],
+    "mcpSupport": "FreeLLMAPI 自带 MCP server，Agent 可以在会话中查询路由与用量。本仓库的 MCP 只提供下载、校验与常见坑。",
+    "webuiUrl": "http://127.0.0.1:3001",
+    "adapterPorts": "",
+    "collectedAt": "2026-10-26",
+    "verification": [
+      [
+        "Release v0.16.10 的 Windows / macOS / Linux 包与 SHA256 digest 已核对",
+        "已核对 2026-10-26"
+      ],
+      [
+        "未下载安装（Windows 包 141 MB，本机网络不适合完整拉取）",
+        "已核对 2026-10-26"
+      ],
+      [
+        "MCP 服务握手与工具列表（initialize / tools/list）",
+        "已验证 2026-10-26"
+      ],
+      [
+        "非目标宿主调用被拦截（HOST_NOT_ALLOWED）",
+        "已验证 2026-10-26"
+      ]
+    ],
+    "deploy": {
+      "type": "binary",
+      "readmeBlock": "# Windows（便携版）\ncurl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-win.zip\n$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower()\nif ($h -ne 'b8a37f31224d42f4d546d3f4a8072e0efe9472a6aba80b135a3bfae1501b347f') { throw 'SHA256 校验失败，请重新下载' }\nExpand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force",
+      "fence": "powershell",
+      "steps": [
+        "if [ \"$(uname -s)\" = \"Darwin\" ]; then case \"$(uname -m)\" in arm64) url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-arm64.dmg ; want=89ac8155eba254852835088fa0cf6e81199c4b93c064af25e0cf3d1cb2bca619 ;; *) url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-x64.dmg ; want=177ec40648851c5338bba04b69c5c6606225aca7918eb0a9fd3fcac53fc14448 ;; esac ; file=FreeLLMAPI.dmg ; else url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10.AppImage ; want=03e7b602b60316df7ae5162e84983d8bc97077d812d383face233a1afff739f4 ; file=FreeLLMAPI.AppImage ; fi",
+        "curl -fL -o \"$file\" \"$url\"",
+        "if command -v sha256sum >/dev/null 2>&1; then echo \"$want  $file\" | sha256sum -c - ; else echo \"$want  $file\" | shasum -a 256 -c - ; fi",
+        "if [ \"$file\" = \"FreeLLMAPI.AppImage\" ]; then chmod +x FreeLLMAPI.AppImage ; echo \"已就绪：./FreeLLMAPI.AppImage\" ; else echo \"已下载 FreeLLMAPI.dmg，双击挂载后拖进 Applications\" ; fi"
+      ],
+      "stepsPs": [
+        "curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-win.zip",
+        "$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower() ; if ($h -ne 'b8a37f31224d42f4d546d3f4a8072e0efe9472a6aba80b135a3bfae1501b347f') { throw \"SHA256 校验失败，文件可能不完整，请重试\" }",
+        "Expand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force ; $exe = Get-ChildItem -Path FreeLLMAPI -Recurse -Filter *.exe | Select-Object -First 1 ; Start-Process -FilePath $exe.FullName ; Write-Host '已启动 FreeLLMAPI，面板地址 http://127.0.0.1:3001'"
+      ],
+      "source": "https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.10"
+    },
+    "pitfalls": [
+      "面板打不开：确认应用已启动，3001 没被占用",
+      "某个模型一直失败：免费端点经常限流，在 Fallback Chain 里调整顺序",
+      "想给别的设备用：默认只监听本机，需要显式开 LAN 并加访问控制",
+      "Windows 用便携版：解压后运行目录里的主程序，不要只拷单个 exe",
+      "macOS 提示无法验证：到「隐私与安全性」允许打开",
+      "Linux AppImage 打不开：先 `chmod +x`，缺 FUSE 时加 `--appimage-extract-and-run`",
+      "别当生产网关：项目定位是个人实验，没有 SLA"
+    ]
+  },
+  "gate": {
+    "allow": [
+      "dumate"
+    ],
+    "label": "百度搭子",
+    "url": "https://www.dumate.cn/",
+    "guideUrl": "https://github.com/JUTZUGC/freellmapi-deploy-guide",
+    "howToFix": [
+      "1. 打开 https://www.dumate.cn/ ，下载并安装「百度搭子」电脑端（Windows / macOS）",
+      "2. 用账号登录",
+      "3. 在对话窗口发送：你好，帮我从 github 部署 JUTZUGC/freellmapi-deploy-guide 到我的电脑上",
+      "4. 部署完成后，在同一对话窗口里继续使用"
+    ],
+    "hint": "请改用「百度搭子」部署后再使用；本工具没有网页版入口。",
+    "onError": "allow"
+  },
+  "keywords": [
+    "FreeLLMAPI 部署",
+    "免费大模型 API",
+    "多个 LLM 聚合",
+    "OpenAI 兼容 接口",
+    "免费 API 路由",
+    "LLM 故障切换",
+    "FreeLLMAPI 中文",
+    "免费模型 端点",
+    "自建 LLM 网关",
+    "freellmapi deploy guide"
+  ],
+  "topics": [
+    "llm",
+    "openai",
+    "api-gateway",
+    "self-hosted",
+    "free-api",
+    "docker"
+  ]
+}

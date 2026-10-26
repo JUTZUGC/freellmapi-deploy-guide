@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "freellmapi-guide": {
+      "command": "node",
+      "args": [
+        "mcp-server.mjs"
+      ]
+    }
+  }
+}
