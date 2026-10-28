@@ -1,6 +1,6 @@
 ﻿# FreeLLMAPI 一键部署脚本（第三方指南）——按官方文档封装
 # 官方文档：https://github.com/tashfeenahmed/freellmapi#quick-start
-# 更新日期：2026-10-26
+# 更新日期：2026-10-28
 # 类型：binary
 $ErrorActionPreference = 'Stop'
 Set-Location -Path $PSScriptRoot
@@ -10,8 +10,8 @@ if (-not (Get-Command curl.exe -ErrorAction SilentlyContinue)) { throw '需要�
 New-Item -ItemType Directory -Force -Path .download | Out-Null
 Set-Location -Path .download
 
-curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-win.zip
-$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower() ; if ($h -ne 'b8a37f31224d42f4d546d3f4a8072e0efe9472a6aba80b135a3bfae1501b347f') { throw "SHA256 校验失败，文件可能不完整，请重试" }
+curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11-win.zip
+$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower() ; if ($h -ne '0b080cb35f89184efea09303f76b0133ecba4c8f963fc1a622f6c8e6d421451d') { throw "SHA256 校验失败，文件可能不完整，请重试" }
 Expand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force ; $exe = Get-ChildItem -Path FreeLLMAPI -Recurse -Filter *.exe | Select-Object -First 1 ; Start-Process -FilePath $exe.FullName ; Write-Host '已启动 FreeLLMAPI，面板地址 http://127.0.0.1:3001'
 
 Write-Host ''

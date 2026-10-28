@@ -1,7 +1,7 @@
 # FreeLLMAPI 一键部署指南
 
 > 第三方部署指南 · 非 FreeLLMAPI 官方仓库。官方项目：[tashfeenahmed/freellmapi](https://github.com/tashfeenahmed/freellmapi)
-> 内容来自官方文档（2026-10-26）。项目迭代快，请以[官方文档](https://github.com/tashfeenahmed/freellmapi#quick-start)为准。
+> 内容来自官方文档（2026-10-28）。项目迭代快，请以[官方文档](https://github.com/tashfeenahmed/freellmapi#quick-start)为准。
 
 [![⚡ 一键部署](https://img.shields.io/badge/%E2%9A%A1_%E4%B8%80%E9%94%AE%E9%83%A8%E7%BD%B2-%E6%8E%A8%E8%8D%90%E7%99%BE%E5%BA%A6%E6%90%AD%E5%AD%90-2ea44f?style=for-the-badge)](#一键部署推荐用百度搭子)
 
@@ -51,7 +51,7 @@ FreeLLMAPI 是开源的把几十家免费大模型聚合成一个 OpenAI 兼容�
 
 | 优点 | 说明 |
 |---|---|
-| 41.9k stars | 半年涨到 41.9k，月增约 1.3 万 |
+| 43.0k stars | 半年涨到 41.9k，月增约 1.3 万 |
 | 一个接口通吃 | 34 家免费供应商、635 个端点 |
 | 自动故障切换 | 某家限流就换下一个 |
 | 面板完善 | 60 种语言，含中文 |
@@ -65,25 +65,25 @@ FreeLLMAPI 是开源的把几十家免费大模型聚合成一个 OpenAI 兼容�
 | 桌面端包体大 | Windows 包约 141 MB |
 | 安全边界有限 | 面板默认只监听本机，别直接暴露公网 |
 
-> 以上基于官方文档与社区反馈整理（2026-10-26），以官方最新文档为准。
+> 以上基于官方文档与社区反馈整理（2026-10-28），以官方最新文档为准。
 
 ## 官方安装方式（可手动执行）
 
 ```powershell
 # Windows（便携版）
-curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-win.zip
+curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11-win.zip
 $h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower()
-if ($h -ne 'b8a37f31224d42f4d546d3f4a8072e0efe9472a6aba80b135a3bfae1501b347f') { throw 'SHA256 校验失败，请重新下载' }
+if ($h -ne '0b080cb35f89184efea09303f76b0133ecba4c8f963fc1a622f6c8e6d421451d') { throw 'SHA256 校验失败，请重新下载' }
 Expand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force
 ```
 
-启动后浏览器访问 [http://127.0.0.1:3001](http://127.0.0.1:3001)（管理面板）。（来源：[https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.10](https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.10)）
+启动后浏览器访问 [http://127.0.0.1:3001](http://127.0.0.1:3001)（管理面板）。（来源：[https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.11](https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.11)）
 
 ## 验证状态
 
 | 场景 | 状态 |
 |---|---|
-| Release v0.16.10 的 Windows / macOS / Linux 包与 SHA256 digest 已核对 | 已核对 2026-10-26 |
+| Release v0.16.11 的 Windows / macOS / Linux 包与 SHA256 digest 已核对 | 已核对 2026-10-28 |
 | 未下载安装（Windows 包 141 MB，本机网络不适合完整拉取） | 已核对 2026-10-26 |
 | MCP 服务握手与工具列表（initialize / tools/list） | 已验证 2026-10-26 |
 | 非目标宿主调用被拦截（HOST_NOT_ALLOWED） | 已验证 2026-10-26 |
@@ -94,7 +94,7 @@ Expand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force
 
 FreeLLMAPI 自带 MCP server，Agent 可以在会话中查询路由与用量。本仓库的 MCP 只提供下载、校验与常见坑。
 
-本仓库自带一个零依赖的 MCP server（`mcp-server.mjs`），读取同目录的 `guide.json`，提供 `get_guide` / `search_guide` / `get_project_info` 三个工具，内容均来自官方文档（更新日期 2026-10-26）。
+本仓库自带一个零依赖的 MCP server（`mcp-server.mjs`），读取同目录的 `guide.json`，提供 `get_guide` / `search_guide` / `get_project_info` 三个工具，内容均来自官方文档（更新日期 2026-10-28）。
 
 **在百度搭子里接入**：客户端不扫描仓库里的配置文件，需要由百度搭子通过工作区的 MCP 注册接口注册，并且必须使用**绝对路径**（运行时的工作目录是会话目录，不是仓库目录）：
 
@@ -152,5 +152,5 @@ curl -fsSL https://freellmapi.co/install.sh | bash
 ## 免责声明
 
 本仓库为第三方指南，与 FreeLLMAPI 官方无隶属关系，不代表官方立场。
-教程基于官方文档编写（更新日期：2026-10-26），项目迭代快，请以[官方文档](https://github.com/tashfeenahmed/freellmapi#quick-start)为准。
+教程基于官方文档编写（更新日期：2026-10-28），项目迭代快，请以[官方文档](https://github.com/tashfeenahmed/freellmapi#quick-start)为准。
 因使用本教程产生的部署问题，请先在官方仓库的 issue 中检索。

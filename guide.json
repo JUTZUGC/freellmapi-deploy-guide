@@ -8,7 +8,7 @@
     "oneLiner": "把几十家免费大模型聚合成一个 OpenAI 兼容接口的本地路由",
     "officialRepo": "https://github.com/tashfeenahmed/freellmapi",
     "officialDocs": "https://github.com/tashfeenahmed/freellmapi#quick-start",
-    "stars": "41.9k",
+    "stars": "43.0k",
     "license": "MIT",
     "highlights": [
       "聚合：34 家供应商、635 个免费端点，统一 /v1",
@@ -21,11 +21,11 @@
     "mcpSupport": "FreeLLMAPI 自带 MCP server，Agent 可以在会话中查询路由与用量。本仓库的 MCP 只提供下载、校验与常见坑。",
     "webuiUrl": "http://127.0.0.1:3001",
     "adapterPorts": "",
-    "collectedAt": "2026-10-26",
+    "collectedAt": "2026-10-28",
     "verification": [
       [
-        "Release v0.16.10 的 Windows / macOS / Linux 包与 SHA256 digest 已核对",
-        "已核对 2026-10-26"
+        "Release v0.16.11 的 Windows / macOS / Linux 包与 SHA256 digest 已核对",
+        "已核对 2026-10-28"
       ],
       [
         "未下载安装（Windows 包 141 MB，本机网络不适合完整拉取）",
@@ -42,20 +42,20 @@
     ],
     "deploy": {
       "type": "binary",
-      "readmeBlock": "# Windows（便携版）\ncurl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-win.zip\n$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower()\nif ($h -ne 'b8a37f31224d42f4d546d3f4a8072e0efe9472a6aba80b135a3bfae1501b347f') { throw 'SHA256 校验失败，请重新下载' }\nExpand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force",
+      "readmeBlock": "# Windows（便携版）\ncurl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11-win.zip\n$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower()\nif ($h -ne '0b080cb35f89184efea09303f76b0133ecba4c8f963fc1a622f6c8e6d421451d') { throw 'SHA256 校验失败，请重新下载' }\nExpand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force",
       "fence": "powershell",
       "steps": [
-        "if [ \"$(uname -s)\" = \"Darwin\" ]; then case \"$(uname -m)\" in arm64) url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-arm64.dmg ; want=89ac8155eba254852835088fa0cf6e81199c4b93c064af25e0cf3d1cb2bca619 ;; *) url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-x64.dmg ; want=177ec40648851c5338bba04b69c5c6606225aca7918eb0a9fd3fcac53fc14448 ;; esac ; file=FreeLLMAPI.dmg ; else url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10.AppImage ; want=03e7b602b60316df7ae5162e84983d8bc97077d812d383face233a1afff739f4 ; file=FreeLLMAPI.AppImage ; fi",
+        "if [ \"$(uname -s)\" = \"Darwin\" ]; then case \"$(uname -m)\" in arm64) url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11-arm64.dmg ; want=7acaf7cda4a4072905ba82054cbab22ad43f3e1d62c6eb697d0555d0eae958c5 ;; *) url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11-x64.dmg ; want=83ac9597038d8567a1bd2db25a149b1cf99c9bc81c824ad04b321e1d058771e6 ;; esac ; file=FreeLLMAPI.dmg ; else url=https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11.AppImage ; want=0b7446bff587538c8e8a7a1bc00c4418b3b296553bcc9d2b1e3ecf9469564cad ; file=FreeLLMAPI.AppImage ; fi",
         "curl -fL -o \"$file\" \"$url\"",
         "if command -v sha256sum >/dev/null 2>&1; then echo \"$want  $file\" | sha256sum -c - ; else echo \"$want  $file\" | shasum -a 256 -c - ; fi",
         "if [ \"$file\" = \"FreeLLMAPI.AppImage\" ]; then chmod +x FreeLLMAPI.AppImage ; echo \"已就绪：./FreeLLMAPI.AppImage\" ; else echo \"已下载 FreeLLMAPI.dmg，双击挂载后拖进 Applications\" ; fi"
       ],
       "stepsPs": [
-        "curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.10/FreeLLMAPI-0.16.10-win.zip",
-        "$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower() ; if ($h -ne 'b8a37f31224d42f4d546d3f4a8072e0efe9472a6aba80b135a3bfae1501b347f') { throw \"SHA256 校验失败，文件可能不完整，请重试\" }",
+        "curl.exe -L --fail -o FreeLLMAPI.zip https://github.com/tashfeenahmed/freellmapi/releases/download/v0.16.11/FreeLLMAPI-0.16.11-win.zip",
+        "$h = (Get-FileHash -Algorithm SHA256 FreeLLMAPI.zip).Hash.ToLower() ; if ($h -ne '0b080cb35f89184efea09303f76b0133ecba4c8f963fc1a622f6c8e6d421451d') { throw \"SHA256 校验失败，文件可能不完整，请重试\" }",
         "Expand-Archive -Path FreeLLMAPI.zip -DestinationPath FreeLLMAPI -Force ; $exe = Get-ChildItem -Path FreeLLMAPI -Recurse -Filter *.exe | Select-Object -First 1 ; Start-Process -FilePath $exe.FullName ; Write-Host '已启动 FreeLLMAPI，面板地址 http://127.0.0.1:3001'"
       ],
-      "source": "https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.10"
+      "source": "https://github.com/tashfeenahmed/freellmapi/releases/tag/v0.16.11"
     },
     "pitfalls": [
       "面板打不开：确认应用已启动，3001 没被占用",
